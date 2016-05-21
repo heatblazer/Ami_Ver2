@@ -46,12 +46,6 @@ Ami::~Ami()
 }
 
 
-//!
-//! \brief AMI::init, initializes socket and connections between objects
-//! also, returns a value, and emits a signal
-//! \param pResult return of the created QTcpSocket (1-OK) (0-FAIL)
-//! NOTE :this is NOT FORBIDEN BY <C/C++ MISRA>
-//!
 void Ami::init(void)
 {
     // check the state for furst time
