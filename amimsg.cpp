@@ -79,8 +79,10 @@ QString AmiMsg::actionID() const
 //!
 AmiMsg& AmiMsg::addField(const QString& app, bool* ok)
 {
-    if (!app.contains(":")) {
-        *ok = false;
+    if (app.contains(":")) {
+        *ok &= true;
+    } else {
+        *ok &= false;
     }
 
     m_command.append(app);
