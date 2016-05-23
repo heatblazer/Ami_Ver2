@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
 
     // create the AMI gate
     ami.init();
+    ami.init();
+    ami.init();
 
     // create a test ami clients //
     ptt p1("ptt 1");
