@@ -45,11 +45,17 @@ Ami::~Ami()
     // TODO remove all Actions from the m_actions
 }
 
-
+// can`t call init more than once
+// if you want to do so, rename init to reinit and remove the guard
 void Ami::init(void)
 {
     // check the state for furst time
-    stateChange();
+    static bool is_init = false;
+    if (!is_init) {
+        is_init = true;
+        stateChange();
+    }
+
 }
 
 
