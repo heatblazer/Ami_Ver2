@@ -55,9 +55,6 @@ MsgType AmiMsg::amiType() const
 // try extract ActionId
 QString AmiMsg::actionID() const
 {
-    QRegularExpression rx("ActionId .*$",
-                          QRegularExpression::CaseInsensitiveOption);
-    QRegularExpressionMatch mach = rx.match(m_command);
 
     QStringList match_list = m_command.split("\r\n");
     for(int i=0; i < match_list.size(); ++i) {
@@ -68,6 +65,7 @@ QString AmiMsg::actionID() const
             return debug;
         }
     }
+    // did not found the string return empty one to be checked
     return QString("");
 }
 

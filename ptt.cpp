@@ -42,13 +42,17 @@ ptt::~ptt()
 void ptt::hClick()
 {
     AmiMsg m;
-
+// local check for the right command - done
     bool ok = true;
     m.addField("Action: ping", &ok);
     m.addField("ActionId: 121212", &ok);
 
-    AmiAction* a = new AmiAction(this, m);
-    p_ami->sendAction(a);
+    if (ok) {
+        AmiAction* a = new AmiAction(this, m);
+        p_ami->sendAction(a);
+    } else {
+        std::cout << "ERROR COMMAND\n";
+    }
 }
 
 
@@ -59,12 +63,13 @@ void ptt::hReleased()
 // nothing interesting here //
 void ptt::hPress()
 {
+    // if you want to handle a held button
 }
 
 void ptt::handleAmiRespond(const AmiAction* action)
 {
     std::cout << "Callee: "
-              << action->getCallMsg().toString().toStdString()
+              << action->getRespondMsg().toString().toStdString()
               << std::endl;
 }
 

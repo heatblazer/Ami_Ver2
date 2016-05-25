@@ -25,6 +25,8 @@ public:
 
 private:
     QString m_command;
+
+
 };
 
 #endif // AMIMSG_H
