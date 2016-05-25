@@ -17,7 +17,8 @@ Ami::Ami(const QString& amiUser, const QString& amiPass, QObject* parent) :
     m_socket(this),
     m_amiUser(amiUser),
     m_amiPass(amiPass),
-    m_loginTimeout(this)
+    m_loginTimeout(this),
+    m_isOneTime(false)  // check for the init - don`t init 2 times
 {
     m_loginTimeout.setSingleShot(true);
 
@@ -50,9 +51,9 @@ Ami::~Ami()
 void Ami::init(void)
 {
     // check the state for furst time
-    static bool is_init = false;
-    if (!is_init) {
-        is_init = true;
+    // never call init 2 times - move the bool var in the class
+    if (!m_isOneTime) {
+        m_isOneTime = true;
         stateChange();
     }
 
@@ -83,22 +84,23 @@ void Ami::hBytesWritten(qint64 bytes)
 // kogato cql msg e koletnat izwikwa hadleNewMsg
 void Ami::hReadyRead()
 {
+
     const QString ami_new_line = "\r\n";
     char local_buff[512];
     while (m_socket.canReadLine()) {
         // read all //
         // or if needed read line by line depends what do we need //
         qint64 l = m_socket.readLine(local_buff, 512);
-        if (l != -1) {
+        if (l!= -1) {
             if (local_buff == ami_new_line) {
                 handleIncomingMessage();
             } else {
                 m_dataBuffer.append(local_buff);
             }
-
         }
     }
 }
+
 
 void Ami::hLoginTimeout()
 {
@@ -195,12 +197,13 @@ void Ami::handleIncomingMessage()
         // this is user message
         // TODO(goro,ilian) OK, we need to add more failsafe cheks...
         AmiMsg* incoming = new AmiMsg(m_dataBuffer);
-
         const QString action_id = incoming->actionID();
+// testov blok
+        {
+            MsgType cmd = incoming->amiType();
 
-        std::cout << "handleIncomingMessage: actionId:"
-                  << action_id.toStdString()
-                  << std::endl;
+        }
+
 
 // Pending deprecation ...
 #if 0

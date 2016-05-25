@@ -58,6 +58,10 @@ private:
 
     QString     m_dataBuffer;    // incomming data
     QSet<AmiAction*> m_actions;
+
+    //boolean check for only one init call!
+    bool        m_isOneTime;
+
 };
 
 #endif // AMI_H
