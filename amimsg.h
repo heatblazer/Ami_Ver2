@@ -5,8 +5,8 @@
 #include <QString>
 
 class AmiClient;
-
-enum class MsgType {EVENT, ACTION, RESPONSE};
+// convinience to check unknown to 0
+enum class MsgType {UNKNOWN, EVENT, ACTION, RESPONSE};
 
 class AmiMsg
 {
@@ -20,6 +20,7 @@ public:
     const QString& toString() const;
     MsgType amiType() const;
     QString actionID() const;
+
 
     AmiMsg& addField(const QString& app, bool *ok);
 

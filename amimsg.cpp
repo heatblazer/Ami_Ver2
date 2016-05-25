@@ -50,6 +50,18 @@ const QString& AmiMsg::toString() const
 MsgType AmiMsg::amiType() const
 {
     // TODO implemet it (if startWith())
+    if (m_command.contains("event", Qt::CaseInsensitive)) {
+        std::cout << m_command.toStdString() << std::endl;
+        return MsgType::EVENT;
+    } else if (m_command.contains("response", Qt::CaseInsensitive)) {
+        std::cout << m_command.toStdString() << std::endl;
+        return MsgType::RESPONSE;
+    } else if (m_command.contains("action", Qt::CaseInsensitive)) {
+        std::cout << m_command.toStdString() << std::endl;
+        return MsgType::ACTION;
+    } else {
+        return MsgType::UNKNOWN;
+    }
 }
 
 // try extract ActionId
