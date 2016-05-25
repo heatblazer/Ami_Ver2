@@ -193,23 +193,41 @@ void Ami::handleIncomingMessage()
 {
     if (m_state == AMI_READY) {
         // this is user message
+        // TODO(goro,ilian) OK, we need to add more failsafe cheks...
         AmiMsg* incoming = new AmiMsg(m_dataBuffer);
+
         const QString action_id = incoming->actionID();
 
         std::cout << "handleIncomingMessage: actionId:"
                   << action_id.toStdString()
                   << std::endl;
 
-        // nameri prileva\ieq mu Action
+// Pending deprecation ...
+#if 0
+        // намери прилежащия Action
         QSet<AmiAction*>::iterator i;
         for(i = m_actions.begin(); i != m_actions.end(); ++i) {
             if ((*i)->getCallMsg().actionID() == action_id) {
-                (*i)->p_respondMsg = incoming;  // atach the respond
+                (*i)->p_respondMsg = incoming;  // attach  the respond
                 (*i)->p_callee->handleAmiRespond(*i);
+
             }
         }
-
-    } else {
+#endif
+        // imporved the set iteration, it`s simplier and more intuitive
+        QSetIterator<AmiAction*> it(m_actions);
+        while (it.hasNext()) {
+            AmiAction* curr = it.next();
+            if (curr->getCallMsg().actionID() == action_id) {
+                curr->p_respondMsg = incoming;
+                curr->p_callee->handleAmiRespond(curr);
+                AmiAction *pdel = curr;
+                m_actions.remove(curr);
+                delete pdel;
+                curr = nullptr; // good practices to null it explicitly
+            }
+        }
+    } else {    // AMI state not ready ...
         // this is posibly my login
         // TODO beter validation
         if (m_dataBuffer.contains("Authentication accepted")) {
