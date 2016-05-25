@@ -170,6 +170,7 @@ void Ami::stateChange(void)
         m_socket.connectToHost("192.168.32.89", 5038);
         break;
     }
+    emit amiStateChanged(m_state);
 }
 
 

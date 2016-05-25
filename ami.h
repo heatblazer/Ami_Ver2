@@ -11,9 +11,9 @@ class AmiAction;
 class Ami : public QObject
 {
     Q_OBJECT
-
+// ami states
     enum AmiState {
-        AMI_DISCONNECTED,   // tcp/tls soket is diskonected
+        AMI_DISCONNECTED,   // tcp/tls soket is disconnected
         AMI_CONNECTED,      // tcp/tls socket is connected
 
         AMI_READY,          // ami login is passed an ready for actions
@@ -35,7 +35,7 @@ private:
 
     // I`ll emit these so the client will know I am ready
 signals:
-
+// if we want to notify the world about this, also emit it where needed
     void amiStateChanged(AmiState state);
 
 private slots:
