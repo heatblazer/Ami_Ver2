@@ -229,7 +229,7 @@ void Ami::handleIncomingMessage()
         }
     } else {    // AMI state not ready ...
         // this is posibly my login
-        // TODO beter validation
+        // TODO(goro,ilian) beter validation
         if (m_dataBuffer.contains("Authentication accepted")) {
             m_state = AMI_READY;
             stateChange();
