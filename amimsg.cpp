@@ -77,6 +77,8 @@ QString AmiMsg::actionID() const
 //!
 AmiMsg& AmiMsg::addField(const QString& app, bool* ok)
 {
+    // we want the user to check exclusively if he did the right thing
+    // and the 'right thing' is to compose a valid command
     if (app.contains(":")) {
         *ok &= true;
     } else {
