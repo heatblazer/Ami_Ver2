@@ -68,7 +68,13 @@ void ptt::hPress()
 
 void ptt::handleAmiRespond(const AmiAction* action)
 {
+    // test call message
     std::cout << "Callee: "
+              << action->getCallMsg().toString().toStdString()
+              << std::endl;
+
+    // test response message
+    std::cout << "AmiResponse: "
               << action->getRespondMsg().toString().toStdString()
               << std::endl;
 }
