@@ -23,4 +23,5 @@ HEADERS += \
     ptt.h \
     amimsg.h \
     amiaction.h \
-    amiclient.h
+    amiclient.h \
+

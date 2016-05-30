@@ -6,10 +6,11 @@
 #include "ami.h"
 #include "ptt.h"
 
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
     // create an ami machine //
     Ami ami("joro", "sopa123");
 
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 
 
     // create a test ami clients //
+    //ptt p1("ptt 1");
     ptt p1("ptt 1");
     ptt p2("ptt 2");
     ptt p3("ptt 3");
@@ -31,7 +33,6 @@ int main(int argc, char *argv[])
     p2.registerAmi(&ami);
     p3.registerAmi(&ami);
     p4.registerAmi(&ami);
-
 
     QWidget mw;
     mw.setLayout((QHBoxLayout*)&ptt::hlayout);
